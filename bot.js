@@ -12,8 +12,8 @@ bot.start((ctx) => {
   ctx.reply(
     "Вітаю вас у школі ESPAcio! Оберіть одну з опцій:",
     Markup.keyboard([
-      ["Тест 📝", "Про школу ℹ️"], // перший ряд кнопок
-      ["Записатися на консультацію 📅", "Залишити заявку 📨"], // другий ряд кнопок
+      ["Тест 📝", "Про школу ESPAcioℹ️"], 
+      ["Записатися на консультацію 📅", "Залишити заявку 📨"], 
     ]).resize() // Робить клавіатуру адаптивною до екрана
   );
 });
@@ -42,7 +42,7 @@ bot.hears("Записатися на консультацію 📅", (ctx) => {
   // Далі можна обробляти відправлені дані
 });
 
-const channelId = "1729894532"; // Заміни на ID твого каналу
+const channelId = "7292502498"; 
 
 bot.hears("Залишити заявку 📨", (ctx) => {
   ctx.reply(
@@ -54,8 +54,8 @@ bot.hears("Залишити заявку 📨", (ctx) => {
 });
 
 // Обробка отримання заявки
-bot.on("text", (ctx) => {
-  if (ctx.session.state === "awaiting_application") {
+bot.on("message:text", (ctx) => {
+  if (ctx.session?.state === "awaiting_application") {
     // Отримуємо текст заявки
     const application = ctx.message.text;
 
@@ -63,9 +63,11 @@ bot.on("text", (ctx) => {
     bot.telegram.sendMessage(channelId, `Нова заявка:\n${application}`);
 
     ctx.reply("Дякуємо! Ваша заявка надіслана.");
-    ctx.session.state = null; // Скидаємо стан
+    ctx.session.state = null; 
   }
 });
 
 // Запуск бота
 bot.launch();
+
+
