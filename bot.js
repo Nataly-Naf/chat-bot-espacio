@@ -4,7 +4,6 @@
 // const channelId = "-4539289526"; // Заміни на ID твого каналу
 
 const { Telegraf, Markup, session } = require("telegraf");
-const config = require("./config");
 const registerTestHandlers = require("./commands/test");
 const registerInfoSchoolHandlers = require("./commands/info");
 const mainMenu = require("./commands/mainMenu");
@@ -12,6 +11,8 @@ const registerEducationMenuHandlers = require("./commands/courses");
 const registerContactManagerHandlers = require("./commands/manager"); 
 const registerRequestHandlers = require("./commands/request"); 
 const path = require('path');
+require('dotenv').config();  // Додає підтримку для завантаження .env файлу
+
 
 const teachers = {
   'Олександр': {
@@ -20,18 +21,28 @@ const teachers = {
   },
   'Олександра': {
     photo: path.join(__dirname, 'pictures', 'Oleksandra.jpeg'),
-    description: 'Я експерт з багатьох дисциплін.'
+    description: `Викладаю іспанську з 2014 року. Працюю як із дітьми, так і з дорослими.
+
+Завжди намагаюсь створювати гарний настрій на уроці, і вважаю, що основою гарного навчання є задоволення від процесу.`
   },
-  'Аня': {
-    photo: path.join(__dirname, 'pictures', 'Anya.jpeg'),
-    description: 'Аня - молода та енергійна викладачка.'
+ 'Анна': {
+    photo: path.join(__dirname, 'pictures', 'Anna.jpeg'),
+    description: `Закінчила Харківський національний педагогічний університет ім. Сковороди, факультет іноземної філології.
+Досвід викладання — 8 років.
+Люблю іноземні мови з дитинства, в іспанську мову закохалася з перших слів і рада, що моя професія пов'язана саме з викладання цієї неймовірно гарної мови. Колись, випадково обравши іспанську, я зробила правильний вибір, і моя робота приносить мені задоволення. Обожнюю навчати людей, особливо відкривати для них світ іспанської мови та культури. Люблю іспанську музику, фільми та серіали, кухню та стиль життя ❤️.`
   },
-  // Додайте інші викладачів за потребою
+  'Ольга': {
+    photo: path.join(__dirname, 'pictures', 'Olga.jpeg'),
+    description: `Люблю іноземні мови з дитинства, в іспанську мову закохалася з перших слів і рада, що моя професія пов'язана саме з викладання цієї неймовірно гарної мови. Колись, випадково обравши іспанську, я зробила правильний вибір, і моя робота приносить мені задоволення. Обожнюю навчати людей, особливо відкривати для них світ іспанської мови та культури. Люблю іспанську музику, фільми та серіали, кухню та стиль життя ❤️.`
+  },
+
+  
 };
 
 
-const bot = new Telegraf(config.BOT_TOKEN);
-const channelId = config.CHANNEL_ID;
+const bot = new Telegraf(process.env.BOT_TOKEN);
+
+const channelId = process.env.CHANNEL_ID;
 
 bot.use(
   session({

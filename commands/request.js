@@ -1,8 +1,8 @@
 const { Markup } = require("telegraf");
-const config = require("../config");
 const mainMenu = require("./mainMenu");
+require('dotenv').config();  // Додає підтримку для завантаження .env файлу
 
-const channelId = config.CHANNEL_ID;
+const channelId = process.env.CHANNEL_ID;
 
 module.exports = (bot) => {
     // Обробник для кнопки "Хочу навчатись"
