@@ -5,7 +5,7 @@ const questionsB1B2 = require("./questionsB1B2");
 let currentQuestionIndex = 0;
 let score = 0;
 let isTestActive = false;
-let currentTestLevel = null; // Визначає, який тест запущено
+let currentTestLevel = null;
 
 module.exports = (bot) => {
   bot.hears("Дізнатися свій рівень 📊", (ctx) => {
@@ -24,15 +24,10 @@ module.exports = (bot) => {
   });
 
   const startTest = (ctx, level) => {
-    // Скидаємо стан сесії, якщо він активний
-    if (ctx.session && ctx.session.state === "awaiting_application") {
-      ctx.session.state = null;
-    }
-
     currentQuestionIndex = 0;
     score = 0;
     isTestActive = true;
-    currentTestLevel = level; // Встановлюємо поточний рівень тесту
+    currentTestLevel = level;
     ctx.reply("Давайте почнемо тест! Оберіть правильну відповідь.");
     askQuestion(ctx);
   };
@@ -40,7 +35,6 @@ module.exports = (bot) => {
   const askQuestion = (ctx) => {
     let questions;
 
-    // Вибір питань відповідно до поточного рівня
     if (currentTestLevel === "A0A2") {
       questions = questionsA0A2;
     } else if (currentTestLevel === "B1B2") {
@@ -48,23 +42,39 @@ module.exports = (bot) => {
     }
 
     if (currentQuestionIndex < questions.length) {
-      const { question, options } = questions[currentQuestionIndex];
-      ctx.reply(
-        `${question}\n${options.join("\n")}`,
-        Markup.keyboard([["a", "b", "c"]]).resize()
-      );
+      // Display motivational message *before* showing question 11
+      if (currentQuestionIndex === 10) {
+        ctx.reply("*🌟 Так тримати! Вже є 10 питань! 🌟*", { parse_mode: "Markdown" });
+        setTimeout(() => {
+          showQuestion(ctx, questions); // Proceed to the next question after delay
+        }, 1000);
+      } else if (currentQuestionIndex === 20) {
+        ctx.reply("*🎉 Більше половини позаду. Так тримати! 🎉*", { parse_mode: "Markdown" });
+        setTimeout(() => {
+          showQuestion(ctx, questions); // Proceed to the next question after delay
+        }, 1000);
+      } else {
+        showQuestion(ctx, questions); // Show the question immediately if no message
+      }
     } else {
-      finishTest(ctx);
+      finishTest(ctx); // End the test after the last question
     }
   };
 
-  bot.hears(/^(a|b|c)$/i, (ctx) => { // Обробник для відповідей a, b, c
+  const showQuestion = (ctx, questions) => {
+    const { question, options } = questions[currentQuestionIndex];
+    ctx.reply(
+      `${question}\n${options.join("\n")}`,
+      Markup.keyboard([["a", "b", "c"]]).resize()
+    );
+  };
+
+  bot.hears(/^(a|b|c)$/i, (ctx) => {
     if (!isTestActive) return;
 
     const userAnswer = ctx.message.text.toLowerCase();
     let questions;
 
-    // Вибір питань відповідно до поточного рівня
     if (currentTestLevel === "A0A2") {
       questions = questionsA0A2;
     } else if (currentTestLevel === "B1B2") {
@@ -87,9 +97,10 @@ module.exports = (bot) => {
   const finishTest = (ctx) => {
     isTestActive = false;
 
+    ctx.reply("*🎊 Вітаю! Ти справився! 🎊*", { parse_mode: "Markdown" });
+
     let resultMessage;
     if (currentTestLevel === "A0A2") {
-      // Логіка результатів для тесту A0-A2
       if (score <= 10) {
         resultMessage = `Ваш рівень: A1.1 (початковий) — ${score}/30 правильних відповідей. Estudiantes que cometen muchos errores en estructuras básicas y tienen problemas para reconocer vocabulario esencial.`;
       } else if (score <= 18) {
@@ -100,7 +111,6 @@ module.exports = (bot) => {
         resultMessage = `Ваш рівень: A2.2 — ${score}/30 правильних відповідей. Estudiantes con buen control del presente, pasado y futuro, capaces de utilizar correctamente estructuras como el pretérito perfecto e indefinido, aunque con algunos errores ocasionales.`;
       }
     } else if (currentTestLevel === "B1B2") {
-      // Логіка результатів для тесту B1-B2
       if (score <= 10) {
         resultMessage = `Ваш рівень: B1.1 — ${score}/30 правильних відповідей. Estudiantes que tienen control básico del pasado y presente, pero aún tienen problemas con formas verbales complejas y estructuras avanzadas.`;
       } else if (score <= 18) {
@@ -112,7 +122,6 @@ module.exports = (bot) => {
       }
     }
 
-    // Відправляємо результат і додаємо клавіатуру з кнопками
     const keyboard = Markup.keyboard([
       ["Головне меню 🔙"],
       ["Курси 📚"],

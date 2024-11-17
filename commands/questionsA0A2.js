@@ -135,9 +135,9 @@ const questions = [
       answer: "a",
     },
     {
-      question: "2️⃣8️⃣ Elige la forma correcta en Pretérito Indefinido: 'Nunca ____ (viajar) a España.'",
+      question: "2️⃣8️⃣ Elige la forma correcta en Pretérito Perfecto: 'Nunca ____ (viajar) a España.'",
       options: ["a) viajé", "b) he viajado", "c) viajo"],
-      answer: "a",
+      answer: "b",
     },
     {
       question: "2️⃣9️⃣ Elige la forma correcta: 'El sábado pasado nosotros ____ (comer) en casa de mis abuelos.'",
