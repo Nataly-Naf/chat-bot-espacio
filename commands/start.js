@@ -1,4 +1,3 @@
-const { Telegraf } = require("telegraf");
 const mainMenu = require("./mainMenu"); // Імпорт головного меню
 const path = require("path");
 
