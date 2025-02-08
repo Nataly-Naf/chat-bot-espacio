@@ -15,7 +15,7 @@ module.exports = (bot) => {
         if (fs.existsSync(videoPath)) {
           // Надсилаємо відео з локальної папки
           ctx.replyWithVideo({ source: videoPath, width: 464,  // Встанови правильні розміри
-            height: 848 })
+            height: 1000 })
             .then(() => {
               // Після відео надсилаємо меню
               ctx.reply("Оберіть, що хочете зробити далі:", mainMenu());
