@@ -110,7 +110,7 @@ const questions = [
       answer: "a",
     },
     {
-      question: "2️⃣3️⃣ Elige la forma incorrecta del verbo en Futuro: 'Mañana ____ (ir) al cine con mis amigos.'",
+      question: "2️⃣3️⃣ Elige la forma correcta del verbo en Futuro: 'Mañana ____ (ir) al cine con mis amigos.'",
       options: ["a) iré", "b) fui", "c) voy"],
       answer: "a",
     },
