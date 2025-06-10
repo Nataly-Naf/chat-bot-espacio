@@ -60,10 +60,11 @@ const teachers = {
 Головне – дисциплінована практика, впевненість і дрібка терпіння, а я допоможу тобі заговорити без страху і з задоволенням!
 Хочеш вивчати іспанську легко і з користю? Тоді запрошую тебе на мої уроки! ✨💡`
   },
-  'Олена': {
-    photo: path.join(__dirname, 'pictures', 'Lena.jpeg'),
-    description: `¡Hola! Me llamo Olena, soy de Ucrania, pero ya llevo 9 años en España. En Madrid (UC3M) hice mi máster y doctorado en Ciencias Sociales, y sigo trabajando en la universidad como investigadora y profesora, dando clases en español e inglés. En 2019 obtuve el certificado DELE B2 y en 2023 el de C1 de la Escuela Oficial de Idiomas.`
-  },
+'Олена': {
+  photo: path.join(__dirname, 'pictures', 'Lena.jpeg'),
+  description: '¡Hola! Me llamo Olena. Soy de Ucrania, pero llevo 9 años viviendo en España. En Madrid, en la Universidad Carlos III (UC3M), hice mi máster y doctorado en Ciencias Sociales. Actualmente trabajo en la universidad como investigadora y profesora, dando clases en español e inglés. En 2019 obtuve el certificado DELE B2 y en 2023 el C1 de la Escuela Oficial de Idiomas.'
+},
+
 
   'Susana': {
     photo: path.join(__dirname, 'pictures', 'Susana.jpeg'),
