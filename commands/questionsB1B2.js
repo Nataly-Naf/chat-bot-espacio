@@ -149,6 +149,8 @@ const questions = [
     options: ["a) pensé", "b) pensaba", "c) hubiera pensado"],
     answer: "a",
   },
+
+
 ];
 
 module.exports = questions;
