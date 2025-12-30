@@ -34,7 +34,7 @@ const registerEducationMenuHandlers = require("./commands/courses");
 const registerRequestHandlers = require("./commands/request");
 
 // --- Викладачі ---
-const path = require('path');
+// const path = require('path');
 
 const teachers = {
   'Олександр': {
